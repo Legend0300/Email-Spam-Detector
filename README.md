@@ -116,4 +116,3 @@ This web app is for educational and demonstration purposes only. The spam classi
 Please ensure that you comply with ethical guidelines and data privacy regulations when handling user data or training machine learning models for email spam detection.
 
 ---
-*Note: This is a fictional `readme.md` created for demonstration purposes only, based on the provided code and assumptions. Adjust the content as needed for your actual project.*
