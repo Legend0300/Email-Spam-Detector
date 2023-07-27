@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Spam Detection</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Add custom CSS for animations and styling -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .fadeIn {
+            animation: fadeIn 1s;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .header-logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .links a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        .card {
+            margin-top: 30px;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+        }
+        .card-header {
+            background-color: #007bff;
+        }
+        .btn-primary {
+            background-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card fadeIn">
+                    <div class="card-header bg-primary text-white">
+                        <div class="header-logo">Email Spam Detection</div>
+                        <div class="links">
+                            <a href="#">Header Link 1</a>
+                            <a href="#">Header Link 2</a>
+                            <a href="#">Header Link 3</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form id="emailForm">
+                            <div class="form-group">
+                                <label for="emailInput">Enter Email:</label>
+                                <textarea class="form-control" id="emailInput" name="emailInput" rows="5" placeholder="Type your email content here..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Check for Spam</button>
+                        </form>
+                        <div id="result" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add full version of jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Add Bootstrap JS and jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Add your custom script for handling form submission -->
+    <script>
+        // Function to handle form submission
+        function submitForm(event) {
+            event.preventDefault();
+
+            const email = $('#emailInput').val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/predict',
+                data: { emailInput: email },
+                success: function (response) {
+                    console.log(response);
+                    $("#result").text("Prediction: " + response).slideDown();
+                    $("#emailInput").val("");
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        }
+
+        // Handle form submission when the form is submitted
+        $(document).ready(function () {
+            $('#emailForm').submit(submitForm);
+        });
+    </script>
+</body>
+</html>
